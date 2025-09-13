@@ -1,21 +1,12 @@
-import me.billal.iterator.BrowseHistory;
-import me.billal.iterator.Iterator;
+import me.billal.strategy.*;
 
 public class Main {
     public static void main(String[] args) {
-        var history = new BrowseHistory();
-        history.push("a");
-        history.push("b");
-        history.push("c");
+        var imageStorage = new ImageStorage();
+        imageStorage.store("a", new JpgCompressor(), new BalckAndWhiteFilter());
 
-        var value = history.pop();
-        System.out.println("popped value:" + value);
+        System.out.println("--------------------------");
 
-        Iterator<String> iterator = history.createIterator();
-        while (iterator.hasNext()) {
-            var url = iterator.current();
-            System.out.println(url);
-            iterator.next();
-        }
+        imageStorage.store("a", new PngCompressor(), new HIghContrast());
     }
 }
