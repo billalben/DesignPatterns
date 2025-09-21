@@ -1,44 +1,24 @@
-import me.billal.command.*;
-import me.billal.command.editor.BoldCommand;
-import me.billal.command.editor.History;
-import me.billal.command.editor.HtmlDocument;
-import me.billal.command.editor.UndoCommand;
-import me.billal.command.fx.Button;
+import me.billal.observer.Chart;
+import me.billal.observer.DataSource;
+import me.billal.observer.SpreadSheet;
 
 public class Main {
     public static void main(String[] args) {
-        var service = new CustomerService();
-        var command = new AddCustomerCommand(service);
+        var dataSource = new DataSource();
+        var sheet1 = new SpreadSheet(dataSource);
+        var chart = new Chart(dataSource);
 
-        var button = new Button(command);
-        button.click();
+        System.out.println("---------------------------");
 
-        System.out.println("----------------------------");
+        dataSource.addObserver(sheet1);
+        dataSource.addObserver(chart);
 
-        var composite = new CompositeCommand();
-        composite.add(new ResizeCommand());
-        composite.add(new BlackAndWhiteCommand());
+        dataSource.setValue(1);
 
-        composite.execute();
+        System.out.println("---------------------------");
 
-        System.out.println("----------------------------");
+        dataSource.removeObserver(sheet1);
 
-        var history = new History();
-        var document = new HtmlDocument();
-        document.setContent("Hello world");
-
-        var boldCommand = new BoldCommand(document, history);
-
-        boldCommand.execute();
-        System.out.println(document.getContent());
-
-        boldCommand.unexecute();
-        System.out.println(document.getContent());
-
-
-        var undoCommand = new UndoCommand(history);
-        undoCommand.execute();
-        System.out.println(document.getContent());
-
+        dataSource.setValue(2);
     }
 }
