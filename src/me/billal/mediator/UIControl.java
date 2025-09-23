@@ -1,9 +1,18 @@
 package me.billal.mediator;
 
-public class UIControl {
-    protected DialogBox owner;
+import java.util.ArrayList;
+import java.util.List;
 
-    public UIControl(DialogBox owner) {
-        this.owner = owner;
+public class UIControl {
+    private final List<EventHandler> eventHandlers = new ArrayList<>();
+
+    public void addEventHandler(EventHandler eventHandler) {
+        eventHandlers.add(eventHandler);
+    }
+
+    protected void notifyEventHandlers() {
+        for (var eventHandler : eventHandlers) {
+            eventHandler.handler();
+        }
     }
 }
