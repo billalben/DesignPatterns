@@ -1,8 +1,13 @@
-import me.billal.mediator.ArticlesDialogBox;
+import me.billal.chainOfResponsibility.*;
 
 public class Main {
     public static void main(String[] args) {
-        var dialog = new ArticlesDialogBox();
-        dialog.simulateUserInteraction();
+        var compressor = new Compressor(null);
+        var logger = new Logger(compressor);
+        var authenticator = new Authenticator(logger);
+
+        var server = new WebServer(authenticator);
+
+        server.handle(new HttpRequest("admin", "1234"));
     }
 }
