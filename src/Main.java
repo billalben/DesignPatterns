@@ -1,8 +1,11 @@
-import me.billal.facade.NotificationService;
+import me.billal.flyweight.PointIconFactory;
+import me.billal.flyweight.PointService;
 
 public class Main {
     public static void main(String[] args) {
-        var service = new NotificationService();
-        service.send("hello world", "target");
+        var service = new PointService(new PointIconFactory());
+        for (var point : service.getPoints()) {
+            point.draw();
+        }
     }
 }
