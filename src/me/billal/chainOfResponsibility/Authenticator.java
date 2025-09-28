@@ -10,6 +10,6 @@ public class Authenticator extends Handler {
     @Override
     public boolean doHandle(HttpRequest request) {
         System.out.println("Authentication");
-        return !((Objects.equals(request.username(), "admin")) && (Objects.equals(request.password(), "1234")));
+        return !((Objects.equals(request.getUsername(), "admin")) && (Objects.equals(request.getPassword(), "1234")));
     }
 }

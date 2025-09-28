@@ -1,13 +1,13 @@
-import me.billal.chainOfResponsibility.*;
+import me.billal.visitor.*;
 
 public class Main {
     public static void main(String[] args) {
-        var compressor = new Compressor(null);
-        var logger = new Logger(compressor);
-        var authenticator = new Authenticator(logger);
+        var document = new HtmlDocument();
 
-        var server = new WebServer(authenticator);
+        document.add(new HeadingNode());
+        document.add(new AnchorNode());
 
-        server.handle(new HttpRequest("admin", "1234"));
+        // document.execute(new HighlightOperation());
+        document.execute(new PlainTextOperation());
     }
 }
