@@ -1,15 +1,12 @@
-import me.billal.proxy.EbookProxy;
-import me.billal.proxy.Library;
+import me.billal.singleton.ConfigManager;
 
 public class Main {
     public static void main(String[] args) {
-        var library = new Library();
+        ConfigManager manager = ConfigManager.getInstance();
+        manager.set("name", "john");
 
-        String[] fileNames = { "a", "b", "c" };
-        for (var fileName : fileNames) {
-            library.add(new EbookProxy(fileName));
-        }
+        ConfigManager other = ConfigManager.getInstance();
 
-        library.openEbook("a");
+        System.out.println(other.get("name"));
     }
 }
